@@ -14,7 +14,7 @@ cache:
     - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=rkosir123/image-catalog:1.0.0-SNAPSHOT-$TRAVIS_JOB_NUMBER
+  - DOCKER_IMAGE=rkosir123/image-catalog:$TRAVIS_JOB_NUMBER
 
 script:
   - mvn clean package -U
