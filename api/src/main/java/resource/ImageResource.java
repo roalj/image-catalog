@@ -37,4 +37,10 @@ public class ImageResource {
 
         return Response.status(Response.Status.OK).entity(image).build();
     }
+
+    @Path("/test")
+    @GET
+    public int getInt() {
+        return 42;
+    }
 }
