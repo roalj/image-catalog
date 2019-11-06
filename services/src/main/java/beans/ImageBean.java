@@ -62,7 +62,7 @@ public class ImageBean {
             log.info("Calling comments service: getting comment count. " + baseUrl);
             try {
                 return httpClient
-                        .target(baseUrl + "/api/comments/count")
+                        .target(baseUrl.get() + "/api/comments/count")
                         .queryParam("imageId", imageId)
                         .request().get(new GenericType<Integer>() {
                         });
