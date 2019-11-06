@@ -21,6 +21,11 @@
             <artifactId>kumuluzee-servlet-jetty</artifactId>
         </dependency>
         <dependency>
+            <artifactId>kumuluzee-config-etcd</artifactId>
+            <groupId>com.kumuluz.ee.config</groupId>
+        </dependency>
+
+        <dependency>
             <groupId>dev.kosir.rso</groupId>
             <artifactId>services</artifactId>
             <version>${project.version}</version>

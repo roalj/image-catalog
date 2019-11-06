@@ -35,6 +35,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.discovery</groupId>
+            <artifactId>kumuluzee-discovery-etcd</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>dev.kosir.rso</groupId>
             <artifactId>models</artifactId>
             <version>${project.version}</version>

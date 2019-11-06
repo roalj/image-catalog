@@ -1,9 +1,11 @@
 package beans;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import entities.ImageEntity;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,6 +17,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 
@@ -26,12 +29,15 @@ public class ImageBean {
     private EntityManager em;
 
     private Client httpClient;
-    private String baseUrl;
+
+    @Inject
+    @DiscoverService("comments-service")
+    private Optional<String> baseUrl;
 
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://comments:8081"; // only for demonstration
+        //baseUrl = "http://comments:8081"; // only for demonstration
     }
 
     public List getImageList(){
@@ -52,15 +58,19 @@ public class ImageBean {
     }
 
     private Integer getCommentCount(Integer imageId) {
-        try {
-            return httpClient
-                    .target(baseUrl + "/api/comments/count")
-                    .queryParam("imageId", imageId)
-                    .request().get(new GenericType<Integer>() {
-                    });
-        } catch (WebApplicationException | ProcessingException e) {
-            log.severe(e.getMessage());
-            throw new InternalServerErrorException(e);
+        if (baseUrl.isPresent()) {
+            log.info("Calling comments service: getting comment count. " + baseUrl);
+            try {
+                return httpClient
+                        .target(baseUrl + "/api/comments/count")
+                        .queryParam("imageId", imageId)
+                        .request().get(new GenericType<Integer>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.severe(e.getMessage());
+                throw new InternalServerErrorException(e);
+            }
         }
+        return null;
     }
 }
