@@ -31,7 +31,7 @@ public class ImageBean {
     private Client httpClient;
 
     @Inject
-    @DiscoverService("comments-service")
+    @DiscoverService(value = "comments-service", environment = "dev", version = "1.0.0")
     private Optional<String> baseUrl;
 
     @PostConstruct
