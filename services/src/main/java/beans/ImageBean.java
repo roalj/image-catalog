@@ -73,4 +73,31 @@ public class ImageBean {
         }
         return null;
     }
+
+    public ImageEntity createImage(ImageEntity image) {
+        try {
+            beginTx();
+            em.persist(image);
+            commitTx();
+        } catch (Exception e) {
+            rollbackTx();
+        }
+
+        return image;
+    }
+
+    private void beginTx() {
+        if (!em.getTransaction().isActive())
+            em.getTransaction().begin();
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive())
+            em.getTransaction().commit();
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive())
+            em.getTransaction().rollback();
+    }
 }

@@ -37,4 +37,14 @@ public class ImageResource {
 
         return Response.status(Response.Status.OK).entity(image).build();
     }
+
+    @POST
+    public Response createImage(ImageEntity image) {
+        if (image.getTitle() == null || image.getDescription() == null || image.getHeight() == null || image.getWidth() == null || image.getUri() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            image = imageBean.createImage(image);
+        }
+        return Response.status(Response.Status.OK).entity(image).build();
+    }
 }
