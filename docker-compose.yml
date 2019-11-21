@@ -19,11 +19,11 @@ services:
     depends_on:
       - etcd
   image-catalog:
-    image: rkosir123/image-catalog:16.1
+    image: rkosir123/image-catalog:17.1
     ports:
       - 8080:8080
     environment:
-      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql:database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
+      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
       KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
       KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
     depends_on:
