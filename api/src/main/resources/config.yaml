@@ -9,9 +9,9 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/ImageMetadataDS
-      connection-url: jdbc:postgresql://postgres:5432/image
+      connection-url: jdbc:postgresql::database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com:5432/image
       username: dbuser
-      password: postgres
+      password: logitech123
       max-pool-size: 20
   discovery:
     etcd:
