@@ -13,7 +13,7 @@ spec:
         app: image-catalog
     spec:
       containers:
-        - image: rkosir123/image-catalog:17.1
+        - image: rkosir123/image-catalog:19.1
           name: image-catalog
           env:
             - name: KUMULUZEE_DISCOVERY_CLUSTER
@@ -44,7 +44,7 @@ kind: Service
 metadata:
   name: image-catalog
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       protocol: TCP
