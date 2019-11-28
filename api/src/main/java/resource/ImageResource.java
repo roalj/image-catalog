@@ -52,7 +52,7 @@ public class ImageResource {
     @Path("/{imageId}")
     public Response deleteImageMetadata(@PathParam("imageId") Integer imageId) {
 
-        boolean deleted = imageBean.deleteImageMetadata(imageId);
+        boolean deleted = imageBean.deleteImage(imageId);
 
         if (deleted) {
             return Response.status(Response.Status.NO_CONTENT).build();

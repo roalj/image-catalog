@@ -16,7 +16,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -75,8 +74,8 @@ public class ImageBean {
         return null;
     }
 
-    public boolean deleteImageMetadata(Integer imageId) {
-        Image image = em.find(Image.class, imageId);
+    public boolean deleteImage(Integer imageId) {
+        ImageEntity image = em.find(ImageEntity.class, imageId);
 
         if (image != null) {
             try {
