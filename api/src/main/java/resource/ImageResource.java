@@ -47,4 +47,17 @@ public class ImageResource {
         }
         return Response.status(Response.Status.OK).entity(image).build();
     }
+
+    @DELETE
+    @Path("/{imageId}")
+    public Response deleteImageMetadata(@PathParam("imageId") Integer imageId) {
+
+        boolean deleted = imageBean.deleteImageMetadata(imageId);
+
+        if (deleted) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }

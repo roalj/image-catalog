@@ -16,6 +16,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -72,6 +73,23 @@ public class ImageBean {
             }
         }
         return null;
+    }
+
+    public boolean deleteImageMetadata(Integer imageId) {
+        Image image = em.find(Image.class, imageId);
+
+        if (image != null) {
+            try {
+                beginTx();
+                em.remove(image);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
+            }
+        } else
+            return false;
+
+        return true;
     }
 
     public ImageEntity createImage(ImageEntity image) {
