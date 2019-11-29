@@ -2,6 +2,7 @@ package resource;
 
 import beans.ImageBean;
 import entities.ImageEntity;
+import entities.MilestoneEntity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -59,5 +60,28 @@ public class ImageResource {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/info")
+    public Response getInfo() {
+        MilestoneEntity mileStone = new MilestoneEntity();
+        mileStone.addClan("rk4059");
+        mileStone.addClan("Aljoša Omejc");
+
+        mileStone.setOpis_projekta("Najin projekt implementira aplikacijo instagram2");
+        mileStone.addMikroStoritev("http://robert.kosir.dev/image-catalog/api/images/");
+        mileStone.addMikroStoritev("http://robert.kosir.dev/comments/api/comments/");
+
+        mileStone.addGitHubLink("https://github.com/roalj/image-catalog");
+        mileStone.addGitHubLink("https://github.com/roalj/comments");
+
+        mileStone.addTravisLink("https://travis-ci.org/roalj/image-catalog");
+        mileStone.addTravisLink("https://travis-ci.org/roalj/comments");
+
+        mileStone.addGitHubLink("https://hub.docker.com/repository/docker/rkosir123/image-catalog");
+        mileStone.addGitHubLink("https://hub.docker.com/repository/docker/rkosir123/comments");
+
+        return Response.status(Response.Status.OK).entity(mileStone).build();
     }
 }
