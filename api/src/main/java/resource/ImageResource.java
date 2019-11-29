@@ -70,11 +70,12 @@ public class ImageResource {
         mileStone.addClan("ao6744");
 
         mileStone.setOpis_projekta("Najin projekt implementira aplikacijo instagram2");
-        mileStone.addMikroStoritev("http://robert.kosir.dev/image-catalog/api/images/");
-        mileStone.addMikroStoritev("http://robert.kosir.dev/comments/api/comments/");
+        mileStone.addMikroStoritev("http://http://35.240.97.247/image-catalog/api/images/");
+        mileStone.addMikroStoritev("http://http://35.240.97.247/comments/api/comments/");
 
         mileStone.addGitHubLink("https://github.com/roalj/image-catalog");
         mileStone.addGitHubLink("https://github.com/roalj/comments");
+        mileStone.addGitHubLink("https://github.com/roalj/k8s");
 
         mileStone.addTravisLink("https://travis-ci.org/roalj/image-catalog");
         mileStone.addTravisLink("https://travis-ci.org/roalj/comments");
