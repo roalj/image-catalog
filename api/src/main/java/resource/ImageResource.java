@@ -67,7 +67,7 @@ public class ImageResource {
     public Response getInfo() {
         MilestoneEntity mileStone = new MilestoneEntity();
         mileStone.addClan("rk4059");
-        mileStone.addClan("Aljoša Omejc");
+        mileStone.addClan("ao6744");
 
         mileStone.setOpis_projekta("Najin projekt implementira aplikacijo instagram2");
         mileStone.addMikroStoritev("http://robert.kosir.dev/image-catalog/api/images/");
@@ -79,8 +79,8 @@ public class ImageResource {
         mileStone.addTravisLink("https://travis-ci.org/roalj/image-catalog");
         mileStone.addTravisLink("https://travis-ci.org/roalj/comments");
 
-        mileStone.addGitHubLink("https://hub.docker.com/repository/docker/rkosir123/image-catalog");
-        mileStone.addGitHubLink("https://hub.docker.com/repository/docker/rkosir123/comments");
+        mileStone.addDockerHubLink("https://hub.docker.com/repository/docker/rkosir123/image-catalog");
+        mileStone.addDockerHubLink("https://hub.docker.com/repository/docker/rkosir123/comments");
 
         return Response.status(Response.Status.OK).entity(mileStone).build();
     }
