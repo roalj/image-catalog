@@ -13,7 +13,7 @@ spec:
         app: image-catalog
     spec:
       containers:
-        - image: rkosir123/image-catalog:19.1
+        - image: rkosir123/image-catalog:28.1
           name: image-catalog
           env:
             - name: KUMULUZEE_DISCOVERY_CLUSTER
@@ -25,7 +25,7 @@ spec:
             - name: KUMULUZEE_SERVER_BASEURL
               value: http://34.76.248.125:8080
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/postgres
+              value: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: dbuser
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
