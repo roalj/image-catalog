@@ -2,6 +2,7 @@ package resource;
 
 import beans.ImageBean;
 import entities.ImageEntity;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ public class ImageResource {
     private ImageBean imageBean;
 
     @GET
+    @Timed(name = "getMethod_timer")
     public Response getImageList() {
         final List<entities.ImageEntity> imageList = imageBean.getImageList();
         return Response.ok(imageList).build();
