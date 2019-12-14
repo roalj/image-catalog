@@ -21,8 +21,6 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/ImageMetadataDS
-      etcd-health-check:
-        connection-url: http://192.168.29.109:2379/health
   metrics:
     web-instrumentation:
       - name: images-endpoint
