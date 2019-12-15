@@ -1,7 +1,7 @@
 version: "3"
 services:
   comments:
-    image: rkosir123/comments:10.1
+    image: rkosir123/comments:11.1
     environment:
       KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/comments
       KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
@@ -11,7 +11,7 @@ services:
     depends_on:
       - etcd
   image-catalog:
-    image: rkosir123/image-catalog:28.1
+    image: rkosir123/image-catalog:31.1
     ports:
       - 8080:8080
     environment:

@@ -1,11 +1,14 @@
 package resource;
 
 import beans.ImageBean;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.ImageEntity;
+import interceptors.LogContextInterceptor;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,6 +16,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Path("/images")
+@Log
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ImageResource {

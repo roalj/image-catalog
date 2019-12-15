@@ -13,7 +13,7 @@ spec:
         app: image-catalog
     spec:
       containers:
-        - image: rkosir123/image-catalog:30.1
+        - image: rkosir123/image-catalog:31.1
           name: image-catalog
           env:
             - name: KUMULUZEE_DISCOVERY_CLUSTER
