@@ -13,6 +13,9 @@ kumuluzee:
       username: dbuser
       password: logitech123
       max-pool-size: 20
+  config:
+    etcd:
+      hosts: http://192.168.29.109:2379
   discovery:
     etcd:
       hosts: http://192.168.29.109:2379
