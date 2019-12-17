@@ -1,6 +1,7 @@
 package beans;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import config.IntegrationProperties;
 import entities.ImageEntity;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +34,9 @@ public class ImageBean {
     @Inject
     @DiscoverService(value = "comments-service", environment = "dev", version = "1.0.0")
     private Optional<String> baseUrl;
+
+    @Inject
+    private IntegrationProperties integrationProperties;
 
     @PostConstruct
     private void init() {
