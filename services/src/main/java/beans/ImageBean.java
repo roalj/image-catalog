@@ -1,10 +1,13 @@
 package beans;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.ImageEntity;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -24,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-
+@Log
 @RequestScoped
 public class ImageBean {
     private Logger log = Logger.getLogger(ImageBean.class.getName());
@@ -63,10 +66,11 @@ public class ImageBean {
         return imageEntity;
     }
 
+    @Timed(name = "CircuitBreakerTimer")
     @Timeout(value = 2, unit = ChronoUnit.SECONDS)
     @CircuitBreaker(requestVolumeThreshold = 3)
     @Fallback(fallbackMethod = "getCommentCountFallback")
-    private Integer getCommentCount(Integer imageId) {
+    public Integer getCommentCount(Integer imageId) {
         if (baseUrl.isPresent()) {
             log.info("Calling comments service: getting comment count. " + baseUrl);
             try {
