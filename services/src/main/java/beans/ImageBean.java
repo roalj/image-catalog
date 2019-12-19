@@ -1,7 +1,13 @@
 package beans;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.ImageEntity;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -16,11 +22,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-
+@Log
 @RequestScoped
 public class ImageBean {
     private Logger log = Logger.getLogger(ImageBean.class.getName());
@@ -34,10 +41,12 @@ public class ImageBean {
     @DiscoverService(value = "comments-service", environment = "dev", version = "1.0.0")
     private Optional<String> baseUrl;
 
+    @Inject
+    private ImageBean imageBeanProxy;
+
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        //baseUrl = "http://comments:8081"; // only for demonstration
     }
 
     public List getImageList(){
@@ -52,12 +61,16 @@ public class ImageBean {
             throw  new NotFoundException();
         }
 
-        imageEntity.setCommentsCount(getCommentCount(id));
+        imageEntity.setCommentsCount(imageBeanProxy.getCommentCount(id));
 
         return imageEntity;
     }
 
-    private Integer getCommentCount(Integer imageId) {
+    @Timed(name = "CircuitBreakerTimer")
+    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @CircuitBreaker(requestVolumeThreshold = 3)
+    @Fallback(fallbackMethod = "getCommentCountFallback")
+    public Integer getCommentCount(Integer imageId) {
         if (baseUrl.isPresent()) {
             log.info("Calling comments service: getting comment count. " + baseUrl);
             try {
@@ -72,6 +85,10 @@ public class ImageBean {
             }
         }
         return null;
+    }
+
+    public Integer getCommentCountFallback(Integer imageId) {
+        return 12;
     }
 
     public boolean deleteImage(Integer imageId) {
