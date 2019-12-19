@@ -2,6 +2,7 @@ package beans;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.cdi.Log;
+import config.IntegrationProperties;
 import entities.ImageEntity;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -43,6 +44,8 @@ public class ImageBean {
 
     @Inject
     private ImageBean imageBeanProxy;
+
+    private IntegrationProperties integrationProperties;
 
     @PostConstruct
     private void init() {
