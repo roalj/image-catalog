@@ -4,10 +4,13 @@ import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.cdi.Log;
 import config.IntegrationProperties;
 import entities.ImageEntity;
+import io.smallrye.faulttolerance.config.CircuitBreakerConfig;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.faulttolerance.exceptions.CircuitBreakerOpenException;
 import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.annotation.PostConstruct;
@@ -72,10 +75,13 @@ public class ImageBean {
         return imageEntity;
     }
 
+    //CircuitBreaker @Fallback doesnt' invoke circuit.breaker.prevented metrics
+    //http://henszey.github.io/etcd-browser/ -> nastimaj test-error na true -> klici metodo 3-krat -> open state
+    // nastimaj test-error na false, počakaj par sekund, in ga nastimaj na true -> v tem casu je v half_open -> klici in prvi klic bo internal server error, drugi bo že prekinjen
     @Timed(name = "CircuitBreakerTimer")
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+   // @Timeout(value = 2, unit = ChronoUnit.SECONDS)
     @CircuitBreaker(requestVolumeThreshold = 3)
-    @Fallback(fallbackMethod = "getCommentCountFallback")
+    //@Fallback(fallbackMethod = "getCommentCountFallback")
     public Integer getCommentCount(Integer imageId) {
         if (baseUrl.isPresent()) {
             log.info("Calling comments service: getting comment count. " + baseUrl);
