@@ -45,6 +45,7 @@ public class ImageBean {
     @Inject
     private ImageBean imageBeanProxy;
 
+    @Inject
     private IntegrationProperties integrationProperties;
 
     @PostConstruct
@@ -64,7 +65,9 @@ public class ImageBean {
             throw  new NotFoundException();
         }
 
-        imageEntity.setCommentsCount(imageBeanProxy.getCommentCount(id));
+        if (integrationProperties.isIntegrateWithCommentsService()) {
+            imageEntity.setCommentsCount(imageBeanProxy.getCommentCount(id));
+        }
 
         return imageEntity;
     }
