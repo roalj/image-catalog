@@ -48,6 +48,6 @@ kumuluzee:
                                   </Root>
                               </Loggers>
                           </Configuration>'
-  configuration-properties:
-    comments-service:
-      enabled: true
+configuration-properties:
+  comments-service:
+    enabled: true
