@@ -32,6 +32,12 @@ public class ImageResource {
     }
 
     @GET
+    @Path("/url/{imageId}")
+    public Response getImageUrl(@PathParam("imageId") Integer imageId) {
+        return Response.status(Response.Status.OK).entity(imageBean.getImageUrl(imageId)).build();
+    }
+
+    @GET
     @Path("/{imageId}")
     public Response getImageMetadata(@PathParam("imageId") Integer imageId) {
 

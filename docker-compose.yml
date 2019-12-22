@@ -1,7 +1,17 @@
 version: "3"
 services:
+  image-analyzer:
+    image: rkosir123/image-analyzer
+    environment:
+      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
+      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
+      APP-PROPERTIES_IMAGE-ANALYZER_MONGODB-URL: mongodb+srv://rkosir:logitech123@cluster0-49egp.mongodb.net/test?retryWrites=true&w=majority
+    ports:
+      - 8082:8082
+    depends_on:
+      - etcd
   comments:
-    image: rkosir123/comments:11.1
+    image: rkosir123/comments
     environment:
       KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/comments
       KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
@@ -11,7 +21,7 @@ services:
     depends_on:
       - etcd
   image-catalog:
-    image: rkosir123/image-catalog:31.1
+    image: rkosir123/image-catalog
     ports:
       - 8080:8080
     environment:

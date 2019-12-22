@@ -75,6 +75,16 @@ public class ImageBean {
         return imageEntity;
     }
 
+    public String getImageUrl(Integer id) {
+        ImageEntity imageEntity = em.find(ImageEntity.class, id);
+
+        if (imageEntity == null) {
+            throw  new NotFoundException();
+        }
+
+        return imageEntity.getUri();
+    }
+
     //CircuitBreaker @Fallback doesnt' invoke circuit.breaker.prevented metrics
     //http://henszey.github.io/etcd-browser/ -> nastimaj test-error na true -> klici metodo 3-krat -> open state
     // nastimaj test-error na false, počakaj par sekund, in ga nastimaj na true -> v tem casu je v half_open -> klici in prvi klic bo internal server error, drugi bo že prekinjen
