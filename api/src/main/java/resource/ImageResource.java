@@ -89,7 +89,13 @@ public class ImageResource {
         CompletionStage<String> stringCompletionStage =
                 imageAnalysingApi.processImageAsynch(imageId);
 
-        stringCompletionStage.whenComplete((s, throwable) -> System.out.println(s));
+        stringCompletionStage.whenCompleteAsync((s, throwable) -> {
+            if (throwable != null) {
+                log.severe(throwable.getMessage());
+            }
+            System.out.println(s);
+        });
+
         stringCompletionStage.exceptionally(throwable -> {
             log.severe(throwable.getMessage());
             return throwable.getMessage();

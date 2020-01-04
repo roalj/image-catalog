@@ -31,7 +31,7 @@ kumuluzee:
   rest-client:
     registrations:
       - class: image-analysing-api
-        url: http://localhost:8082/api
+        url: http://image-analyzer:8082/api
         read-timeout: 5000
 #  logs:
 #    config-file: '<?xml version="1.0" encoding="UTF-8"?>
