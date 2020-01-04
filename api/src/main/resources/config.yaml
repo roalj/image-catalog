@@ -4,21 +4,21 @@ kumuluzee:
     name: dev
   version: 1.0.0
   server:
-    base-url: http://image-catalog:8080
+    base-url: http://localhost:8080
     http:
       port: 8080
   datasources:
     - jndi-name: jdbc/ImageMetadataDS
-      connection-url: jdbc:postgresql:database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com:5432/image
+      connection-url: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
       username: dbuser
       password: logitech123
       max-pool-size: 20
   config:
     etcd:
-      hosts: http://192.168.29.109:2379
+      hosts: http://localhost:2379
   discovery:
     etcd:
-      hosts: http://192.168.29.109:2379
+      hosts: http://localhost:2379
   health:
     checks:
       data-source-health-check:
@@ -31,7 +31,7 @@ kumuluzee:
   rest-client:
     registrations:
       - class: image-analysing-api
-        url: http://image-analyzer:8082/api
+        url: http://localhost:8082/api
         read-timeout: 5000
 #  logs:
 #    config-file: '<?xml version="1.0" encoding="UTF-8"?>
