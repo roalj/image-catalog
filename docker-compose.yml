@@ -1,35 +1,45 @@
 version: "3"
 services:
-  image-analyzer:
-    image: rkosir123/image-analyzer
-    environment:
-      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
-      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
-      APP-PROPERTIES_IMAGE-ANALYZER_MONGODB-URL: mongodb+srv://rkosir:logitech123@cluster0-49egp.mongodb.net/test?retryWrites=true&w=majority
+#  image-analyzer:
+#    image: rkosir123/image-analyzer
+#    environment:
+#      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
+#      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
+#      APP-PROPERTIES_IMAGE-ANALYZER_MONGODB-URL: mongodb+srv://rkosir:logitech123@cluster0-49egp.mongodb.net/test?retryWrites=true&w=majority
+#    ports:
+#      - 8082:8082
+#    depends_on:
+#      - etcd
+#  comments:
+#    image: rkosir123/comments
+#    environment:
+#      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/comments
+#      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
+#      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
+#    ports:
+#      - 8081:8081
+#    depends_on:
+#      - etcd
+#  image-catalog:
+#    image: rkosir123/image-catalog
+#    ports:
+#      - 8080:8080
+#    environment:
+#      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
+#      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
+#      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
+#      KUMULUZEE_REST-CLIENT_REGISTRATIONS0_URL: http://image-analyzer:8082/api
+#    depends_on:
+#      - etcd
+  pg-image:
+    image: postgres:12
     ports:
-      - 8082:8082
-    depends_on:
-      - etcd
-  comments:
-    image: rkosir123/comments
+      - 5432:5432
     environment:
-      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/comments
-      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
-      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
-    ports:
-      - 8081:8081
-    depends_on:
-      - etcd
-  image-catalog:
-    image: rkosir123/image-catalog
-    ports:
-      - 8080:8080
-    environment:
-      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://database-1.cgjpznojjyw2.eu-central-1.rds.amazonaws.com/image
-      KUMULUZEE_CONFIG_ETCD_HOSTS: http://etcd:2379
-      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://etcd:2379
-    depends_on:
-      - etcd
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: logitech123
+      POSTGRES_DB: image
+
   etcd:
     image: quay.io/coreos/etcd:latest
     ports:
