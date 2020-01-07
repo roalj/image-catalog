@@ -29,6 +29,9 @@ public class ImageEntity {
     @Column(name = "uri")
     private String uri;
 
+    @Column(name = "mongo_id")
+    private String mongoId;
+
     @Transient
     private Integer commentsCount;
 
@@ -86,6 +89,14 @@ public class ImageEntity {
 
     public void setCommentsCount(Integer commentsCount) {
         this.commentsCount = commentsCount;
+    }
+
+    public String getMongoId() {
+        return mongoId;
+    }
+
+    public void setMongoId(String mongoId) {
+        this.mongoId = mongoId;
     }
 }
 
