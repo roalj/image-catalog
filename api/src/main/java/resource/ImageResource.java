@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 @Path("/images")
-//@Log
+@Log
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ImageResource {
