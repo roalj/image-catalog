@@ -4,13 +4,11 @@ import beans.ImageBean;
 import client.ImageAnalysingApi;
 import com.kumuluz.ee.logs.cdi.Log;
 import entities.ImageEntity;
-import interceptors.LogContextInterceptor;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
