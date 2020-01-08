@@ -5,6 +5,7 @@ import com.kumuluz.ee.logs.cdi.Log;
 import config.IntegrationProperties;
 import entities.ImageEntity;
 import io.smallrye.faulttolerance.config.CircuitBreakerConfig;
+import org.apache.commons.codec.binary.Base64;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -26,7 +27,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -82,7 +82,7 @@ public class ImageBean {
             throw  new NotFoundException();
         }
 
-        return imageEntity.getUri();
+        return imageEntity.getMongoId();
     }
 
     //CircuitBreaker @Fallback doesnt' invoke circuit.breaker.prevented metrics

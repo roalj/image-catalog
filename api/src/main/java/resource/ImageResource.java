@@ -42,7 +42,7 @@ public class ImageResource {
     }
 
     @GET
-    @Path("/url/{imageId}")
+    @Path("/mongoId/{imageId}")
     public Response getImageUrl(@PathParam("imageId") Integer imageId) {
         return Response.status(Response.Status.OK).entity(imageBean.getImageUrl(imageId)).build();
     }
